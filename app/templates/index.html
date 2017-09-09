@@ -4,8 +4,8 @@
 <h4>CRUD</h4>
 <p>Que deseas hacer:</p>
 <ul>
-  <li><a href="#">Create</a></li>
-  <li><a href="#">Read</a></li>
+  <li><a href="{{ url_for('create') }}">Create</a></li>
+  <li><a href="{{ url_for('read') }}">Read</a></li>
   <li><a href="#">Update</a></li>
   <li><a href="#">Delete</a></li>
 </ul>
@@ -13,5 +13,4 @@
 
 
 {% block footer %}
-Sistema CRUD para la Prueba desarrollo de Mesfix
 {% endblock %}

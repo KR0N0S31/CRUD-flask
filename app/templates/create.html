@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% from "_macro.html" import render_field %}
+<h2>Create</h2>
+
+{% if log_create %} <span>Log creado correctamente</span> {% endif %}
+
+<form action="" method="post">
+  {# <!-- <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" /> -->#}
+
+  <div class="">
+    {{ render_field(form.tipo) }}
+    <!-- <label for="tipo">Tipo</label>
+    <select class="" name="tipo" id="tipo" required>
+      <option value="Error" >Information</option>
+      <option value="Warning" >Warning</option>
+      <option value="Error" >Error</option>
+    </select> -->
+  </div>
+  <div class="">
+    {{ render_field(form.descripcion, required="required" ) }}
+  </div>
+  <div class="">
+    {{ render_field(form.fecha, type="date", required="required" ) }}
+  </div>
+  <div class="">
+    {{ render_field(form.hora, type="time", required="required" ) }}
+  </div>
+  <div class="">
+    {{ render_field(form.trasaccion, required="required" ) }}
+  </div>
+  <div class="">
+    {{ render_field(form.servicio, required="required" ) }}
+  </div>
+
+  <button type="submit" name="button">Enviar</button>
+</form>
+{% endblock %}
+
+
+          <form id="login-form" method="POST">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+              <div class="row control-group">
+                  <div class="form-group col-xs-12 floating-label-form-group controls">
+                       {{ render_field(form.username, class='form-control', id='username' ) }}
+                      <p class="help-block text-danger"></p>
+                  </div>
+              </div>
+              <div class="row control-group">
+                  <div class="form-group col-xs-12 floating-label-form-group controls">
+                       {{ render_field(form.password, class='form-control',id='password' ) }}
+                      <p class="help-block text-danger"></p>
+                  </div>
+              </div>
+              <br>
+              <div id="success"></div>
+              <div class="row">
+                  <div class="form-group col-xs-12">
+                      <button type="submit" class="btn btn-default">Send</button>
+                  </div>
+              </div>
+          </form>
+
+
+{% block footer %}
+{% endblock %}
