@@ -1,9 +1,53 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h4>CRUD</h4>
+{% from "_macro.html" import render_field %}
+{% from "_macro.html" import show_log %}
+<h2>Read</h2>
+
+<h3>Filtros</h3>
+<form class="" action="" method="get">
+  <div class="" style="display:flex">
+    <div class="">
+      {{ render_field(form.tipo) }}
+    </div>
+    <div class="">
+      {{ render_field(form.fecha, type="date" ) }}
+    </div>
+    <div class="">
+      {{ render_field(form.hora, type="time" ) }}
+    </div>
+  </div>
+  <div class="">
+    <button type="submit" name="filter_activate" value="True">Filtrar</button>
+  </div>
+</form><br>
+{% if fil %}
+<a href="{{ url_for('read') }}">Quitar filtros</a>
+{% endif %}
+{% if sin_result == 1 %}
+<p>No hay resusltados</p>
+{% else %}
+<table>
+  <thead>
+    <th>Tipo.</th>
+    <th>Descripción.</th>
+    <th>Fecha.</th>
+    <th>Hora.</th>
+    <th>Trasaccion.</th>
+    <th>Servicio.</th>
+  </thead>
+  <tbody>
+    {% for log in logs %}
+    {{ show_log(log) }}
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
 {% endblock %}
 
 
 {% block footer %}
-{% endblock %
+<a href=" {{url_for('index')}} ">Inicio</a>
+{% endblock %}

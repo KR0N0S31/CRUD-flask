@@ -10,13 +10,10 @@
   {# <!-- <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" /> -->#}
 
   <div class="">
-    {{ render_field(form.tipo) }}
-    <!-- <label for="tipo">Tipo</label>
-    <select class="" name="tipo" id="tipo" required>
-      <option value="Error" >Information</option>
-      <option value="Warning" >Warning</option>
-      <option value="Error" >Error</option>
-    </select> -->
+    {{ render_field(form.tipo, required="required") }}
+    {% if tipo_not_val %}
+    <ul><li> <p>Porfavor selecciona el tipo</p> </li></ul>
+    {% endif %}
   </div>
   <div class="">
     {{ render_field(form.descripcion, required="required" ) }}
@@ -38,30 +35,6 @@
 </form>
 {% endblock %}
 
-
-          <form id="login-form" method="POST">
-              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-              <div class="row control-group">
-                  <div class="form-group col-xs-12 floating-label-form-group controls">
-                       {{ render_field(form.username, class='form-control', id='username' ) }}
-                      <p class="help-block text-danger"></p>
-                  </div>
-              </div>
-              <div class="row control-group">
-                  <div class="form-group col-xs-12 floating-label-form-group controls">
-                       {{ render_field(form.password, class='form-control',id='password' ) }}
-                      <p class="help-block text-danger"></p>
-                  </div>
-              </div>
-              <br>
-              <div id="success"></div>
-              <div class="row">
-                  <div class="form-group col-xs-12">
-                      <button type="submit" class="btn btn-default">Send</button>
-                  </div>
-              </div>
-          </form>
-
-
 {% block footer %}
+<a href=" {{url_for('index')}} ">Inicio</a>
 {% endblock %}
