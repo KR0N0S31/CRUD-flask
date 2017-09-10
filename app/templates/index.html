@@ -5,10 +5,10 @@
 <p>Que deseas hacer:</p>
 <ul>
   <li><a href="{{ url_for('create') }}">Create</a></li>
-  <li><a href="{{ url_for('read') }}">Read</a></li>
-  <li><a href="#">Update</a></li>
-  <li><a href="#">Delete</a></li>
-  <li><a href="/asd">404</a></li>
+  <li><a href="{{ url_for('logs') }}">Read</a></li>
+  <li><a href="{{ url_for('update_log') }}">Update</a></li>
+  <li><a href="{{ url_for('delete_log') }}">Delete</a></li>
+  <li><a href="/404">404</a></li>
 </ul>
 {% endblock %}
 

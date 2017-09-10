@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Log no seleccionado o no valido</h1>
+
+<span>Puedes seleccionar el log a modificar <a href="{{url_for('logs')}}">AQUI</a></span>
+
+<p><a href="javascript:history.go(-1)">&laquo; Anterior</a> / <a href="{{ url_for('index') }}">Inicio &raquo;</a></p>
+
+{% endblock %}

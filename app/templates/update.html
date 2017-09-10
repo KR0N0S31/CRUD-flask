@@ -2,9 +2,29 @@
 
 {% block content %}
 {% from "_macro.html" import render_field %}
-<h2>Create</h2>
+{% from "_macro.html" import show_log %}
+<div class="">
+  <p>El log a modificar es:</p>
+  <table>
+    <thead>
+      <th>Tipo.</th>
+      <th>Descripción.</th>
+      <th>Fecha.</th>
+      <th>Hora.</th>
+      <th>Trasaccion.</th>
+      <th>Servicio.</th>
+    </thead>
+    <tbody>
+      <tr>
+        {{ show_log(data) }}
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-{% if log_create %} <span>Log creado correctamente</span> {% endif %}
+<h2>Update</h2>
+
+{% if log_create %} <span>Log actualizado correctamente</span> {% endif %}
 {% if db_not_conn %}
 <span>Ocurrio un error al conectarse con la base de datos, por favor intentelo mas tarde.</span>
 {% endif %}
@@ -33,9 +53,10 @@
   <div class="">
     {{ render_field(form.servicio, required="required" ) }}
   </div>
-
-  <button type="submit" name="button">Enviar</button>
+  <button type="submit" name="button">Actualizar</button>
 </form>
+
+<a href="javascript:history.go(-1)">Cancelar</a>
 {% endblock %}
 
 {% block footer %}

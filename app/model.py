@@ -1,6 +1,7 @@
 
 class Log:
-    def __init__(self, tipo, descripcion, fecha, hora, trasaccion, servicio):
+    def __init__(self, tipo, descripcion, fecha, hora, trasaccion, servicio, log_id):
+        self.log_id = log_id
         self.tipo = tipo
         self.descripcion = descripcion
         self.fecha = fecha

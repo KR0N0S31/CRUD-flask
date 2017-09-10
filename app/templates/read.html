@@ -4,46 +4,66 @@
 {% from "_macro.html" import render_field %}
 {% from "_macro.html" import show_log %}
 <h2>Read</h2>
+{% if db_not_conn %}
+  <span>Ocurrio un error al conectarse con la base de datos, por favor intentelo mas tarde.</span>
+{% endif %}
 
-<h3>Filtros</h3>
-<form class="" action="" method="get">
-  <div class="" style="display:flex">
-    <div class="">
-      {{ render_field(form.tipo) }}
+
+  <form class="" action="" method="get">
+    <h3>Filtros</h3>
+    <div class="" style="display:flex">
+      <div class="">
+        {{ render_field(form.tipo) }}
+      </div>
+      <div class="">
+        {{ render_field(form.fecha, type="date" ) }}
+      </div>
+      <div class="">
+        {{ render_field(form.hora, type="time" ) }}
+      </div>
     </div>
     <div class="">
-      {{ render_field(form.fecha, type="date" ) }}
+      <button type="submit" name="filter_activate" value="True">Filtrar</button>
     </div>
-    <div class="">
-      {{ render_field(form.hora, type="time" ) }}
-    </div>
-  </div>
-  <div class="">
-    <button type="submit" name="filter_activate" value="True">Filtrar</button>
-  </div>
-</form><br>
-{% if fil %}
-<a href="{{ url_for('read') }}">Quitar filtros</a>
-{% endif %}
-{% if sin_result == 1 %}
-<p>No hay resusltados</p>
-{% else %}
-<table>
-  <thead>
-    <th>Tipo.</th>
-    <th>Descripción.</th>
-    <th>Fecha.</th>
-    <th>Hora.</th>
-    <th>Trasaccion.</th>
-    <th>Servicio.</th>
-  </thead>
-  <tbody>
-    {% for log in logs %}
-    {{ show_log(log) }}
-    {% endfor %}
-  </tbody>
-</table>
-{% endif %}
+  </form><br>
+
+  {% if fil %}
+  <a href="{{ url_for('logs') }}">Quitar filtros</a>
+  {% endif %}
+
+  {% if sin_result == 1 %}
+  <p>No hay resusltados</p>
+  {% else %}
+    <table>
+      <thead>
+        <th>Tipo.</th>
+        <th>Descripción.</th>
+        <th>Fecha.</th>
+        <th>Hora.</th>
+        <th>Trasaccion.</th>
+        <th>Servicio.</th>
+      </thead>
+      <tbody>
+        {% for log in logs %}
+        <tr>
+          {{ show_log(log) }}
+          <td>
+            <form action="{{ url_for('update_log') }}" name="form" method="get">
+              <input type="hidden" name="log" value="{{ log.log_id }}">
+              <button type="submit">Actualizar</button>
+            </form>
+          </td>
+          <td>
+            <form action="{{ url_for('delete_log') }}" method="get">
+              <input type="hidden" name="log" value="{{ log.log_id }}">
+              <button type="submit">Borrar</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
 
 {% endblock %}
 

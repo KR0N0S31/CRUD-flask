@@ -9,13 +9,11 @@
 	{% endif %}
 {% endmacro %}
 
-{% macro show_log(log) %}
-<tr>
-	<td>{{ log.tipo }}</td>
-	<td>{{ log.descripcion }}</td>
-	<td>{{ log.fecha }}</td>
-	<td>{{ log.hora }}</td>
-	<td>{{ log.trasaccion }}</td>
-	<td>{{ log.servicio }}</td>
-</tr>
+{% macro show_log(log_update) %}
+	<td>{{ log_update.tipo }}</td>
+	<td>{{ log_update.descripcion }}</td>
+	<td>{{ log_update.fecha }}</td>
+	<td>{{ log_update.hora }}</td>
+	<td>{{ log_update.trasaccion }}</td>
+	<td>{{ log_update.servicio }}</td>
 {% endmacro %}

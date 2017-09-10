@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% from "_macro.html" import show_log %}
+<h2>Delete</h2>
+<div class="">
+  <p>El log a borrar es:</p>
+  <table>
+    <thead>
+      <th>Tipo.</th>
+      <th>Descripción.</th>
+      <th>Fecha.</th>
+      <th>Hora.</th>
+      <th>Trasaccion.</th>
+      <th>Servicio.</th>
+    </thead>
+    <tbody>
+      <tr>
+        {{ show_log(data) }}
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+{% if db_not_conn %}
+<span>Ocurrio un error al conectarse con la base de datos, por favor intentelo mas tarde.</span>
+{% endif %}
+<form action="" method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label for="delete_confirm"><b>Confirmar</b></label>
+  <button type="submit" id="delete_confirm">Borrar</button>
+</form>
+
+<a href="javascript:history.go(-1)">Cancelar</a>
+{% endblock %}
+
+{% block footer %}
+<a href=" {{url_for('index')}} ">Inicio</a>
+{% endblock %}
