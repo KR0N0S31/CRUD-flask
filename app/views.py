@@ -5,9 +5,14 @@ from app.model import Log
 from app.db import *
 from app.filters import filtrar_logs
 
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html')
+
 @app.route('/', methods =['GET','POST'])
 def index():
     return render_template('index.html')
+
 
 @app.route('/create', methods =['GET','POST'])
 def create():
@@ -21,6 +26,7 @@ def create():
         hora = log_form.hora.data
         trasaccion = log_form.trasaccion.data
         servicio = log_form.servicio.data
+
         log = Log(tipo, descripcion, fecha, hora, trasaccion, servicio)
         collection.insert(log.toDBCollection())
 
@@ -28,6 +34,7 @@ def create():
         return render_template('create.html', form = log_form, log_create = True )
     else:
         return render_template('create.html', form = log_form, log_create = False )
+
 
 @app.route(r'/read', methods =['GET','POST'])
 def read():
@@ -50,3 +57,8 @@ def read():
         return render_template('read.html', logs=logs, form = filter_form, sin_result = sin_result )
     else:
         return render_template('read.html', logs=logs)
+
+
+@app.route(r'/update', methods =['GET','POST'])
+def update():
+    return render_template('update.html', logs=logs)
