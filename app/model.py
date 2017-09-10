@@ -1,12 +1,12 @@
 
 class Log:
-    def __init__(self, tipo, descripcion, fecha, hora, trasaccion, servicio, log_id):
+    def __init__(self, tipo, descripcion, fecha, hora, transaccion, servicio, log_id):
         self.log_id = log_id
         self.tipo = tipo
         self.descripcion = descripcion
         self.fecha = fecha
         self.hora = hora
-        self.trasaccion = trasaccion
+        self.transaccion = transaccion
         self.servicio = servicio
 
     def toDBCollection (self):
@@ -15,15 +15,9 @@ class Log:
             "descripcion":self.descripcion,
             "fecha": self.fecha,
             "hora": self.hora,
-            "trasaccion":self.trasaccion,
+            "transaccion":self.transaccion,
             "servicio":self.servicio
         }
 
     def __str__(self):
-        return "Tipo: {} - Descripcion: {} - Fecha: {} - Hora: {} - Trasaccion: {} - Servicio: {}".format(self.tipo, self.descripcion, self.fecha, self.hora, self.trasaccion, self.servicio)
-
-# Tipo
-# Descripción.
-# Fecha hora,
-# Trasaccion, 
-# Servicio 
+        return "Tipo: {} - Descripcion: {} - Fecha: {} - Hora: {} - Transaccion: {} - Servicio: {}".format(self.tipo, self.descripcion, self.fecha, self.hora, self.transaccion, self.servicio)

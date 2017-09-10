@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="">
 {% from "_macro.html" import show_log %}
 <h2>Delete</h2>
 <div class="">
@@ -9,9 +10,9 @@
     <thead>
       <th>Tipo.</th>
       <th>Descripción.</th>
-      <th>Fecha.</th>
+      <th>Fecha.<br>yyyy/mm/dd</th>
       <th>Hora.</th>
-      <th>Trasaccion.</th>
+      <th>Transaccion.</th>
       <th>Servicio.</th>
     </thead>
     <tbody>
@@ -32,6 +33,7 @@
 </form>
 
 <a href="javascript:history.go(-1)">Cancelar</a>
+</div>
 {% endblock %}
 
 {% block footer %}

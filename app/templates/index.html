@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h4>CRUD</h4>
+<div class="">
+<h2>CRUD</h2>
 <p>Que deseas hacer:</p>
 <ul>
   <li><a href="{{ url_for('create') }}">Create</a></li>
@@ -10,6 +11,7 @@
   <li><a href="{{ url_for('delete_log') }}">Delete</a></li>
   <li><a href="/404">404</a></li>
 </ul>
+</div>
 {% endblock %}
 
 

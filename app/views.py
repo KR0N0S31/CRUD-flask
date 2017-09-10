@@ -19,14 +19,14 @@ def create():
     log_form = FormLog(request.form)
     if request.method == 'POST' and log_form.validate():
         tipo = log_form.tipo.data
-        if tipo == 'False':
-            return render_template('create.html', form = log_form, log_create = False, tipo_not_val = True)
         descripcion = log_form.descripcion.data
         fecha = str(log_form.fecha.data)
         hora = log_form.hora.data
-        trasaccion = log_form.trasaccion.data
+        transaccion = log_form.transaccion.data
         servicio = log_form.servicio.data
-        log = Log(tipo, descripcion, fecha, hora, trasaccion, servicio,0)
+        if tipo == 'False' or transaccion == 'False' or servicio == 'False':
+            return render_template('create.html', form = log_form, log_create = False, form_not_val = True)
+        log = Log(tipo, descripcion, fecha, hora, transaccion, servicio,0)
         try:
             collection.insert(log.toDBCollection())
         except Exception as e:
@@ -44,7 +44,7 @@ def logs():
     try:
         cursor = collection.find()
         for fut in cursor:
-            logs.append(Log(fut['tipo'], fut['descripcion'], fut['fecha'], fut['hora'], fut['trasaccion'], fut['servicio'],fut['_id']))
+            logs.append(Log(fut['tipo'], fut['descripcion'], fut['fecha'], fut['hora'], fut['transaccion'], fut['servicio'],fut['_id']))
     except Exception as e:
         return render_template('read.html', form = filter_form, logs=logs, db_not_conn = True)
     if request.method == 'GET':
@@ -53,8 +53,10 @@ def logs():
             filter_tipo = request.args.get('tipo', False)
             filter_fecha = request.args.get('fecha', False)
             filter_hora = request.args.get('hora', False)
+            filter_transaccion = request.args.get('transaccion', False)
+            filter_servicio = request.args.get('servicio', False)
             try:
-                logs_filter = filtrar_logs(collection, filter_tipo ,filter_fecha ,filter_hora)
+                logs_filter = filtrar_logs(collection, filter_tipo ,filter_fecha ,filter_hora, filter_transaccion, filter_servicio)
             except Exception as e:
                  return render_template('read.html', logs=logs_filter, form = filter_form, sin_result = sin_result, db_not_conn = True)
             if len(logs_filter) == 0:
@@ -74,14 +76,14 @@ def update_log():
     if request.method == 'POST':
         if update_form.validate():
             tipo = update_form.tipo.data
-            if tipo == 'False':
-                return render_template('update.html', form = update_form, tipo_not_val = True, data = data )
+            transaccion = update_form.transaccion.data
+            servicio = update_form.servicio.data
+            if tipo == 'False' or transaccion == 'False' or servicio == 'False':
+                return render_template('update.html', form = update_form, form_not_val = True, data = data )
             descripcion = update_form.descripcion.data
             fecha = str(update_form.fecha.data)
             hora = update_form.hora.data
-            trasaccion = update_form.trasaccion.data
-            servicio = update_form.servicio.data
-            log = Log(tipo, descripcion, fecha, hora, trasaccion, servicio, log_id)
+            log = Log(tipo, descripcion, fecha, hora, transaccion, servicio, log_id)
             log = log.toDBCollection()
             try:
                 update(collection,log_id,log)
@@ -93,7 +95,7 @@ def update_log():
     elif request.method == 'GET':
         if log_id:
             if data:
-                update_form = FormLog(descripcion = data.descripcion, hora = data.hora, trasaccion = data.trasaccion, servicio = data.servicio)
+                update_form = FormLog(descripcion = data.descripcion, hora = data.hora, transaccion = data.transaccion, servicio = data.servicio)
                 return render_template('update.html', form = update_form, data = data)
             else:
                 return render_template('redirect.html')
@@ -124,5 +126,3 @@ def delete_log():
             return render_template('redirect.html')
     else:
         return render_template('redirect.html')
-
-# collection.remove({"internacional":True})

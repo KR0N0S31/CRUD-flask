@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="">
 {% from "_macro.html" import render_field %}
 <h2>Create</h2>
 
@@ -10,13 +11,12 @@
 {% endif %}
 
 <form action="" method="post">
+  {% if form_not_val %}
+  <ul><li> <p>Porfavor selecciona todos los campos </p> </li></ul>
+  {% endif %}
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-
   <div class="">
     {{ render_field(form.tipo, required="required") }}
-    {% if tipo_not_val %}
-    <ul><li> <p>Porfavor selecciona el tipo</p> </li></ul>
-    {% endif %}
   </div>
   <div class="">
     {{ render_field(form.descripcion, required="required" ) }}
@@ -28,7 +28,7 @@
     {{ render_field(form.hora, type="time", required="required" ) }}
   </div>
   <div class="">
-    {{ render_field(form.trasaccion, required="required" ) }}
+    {{ render_field(form.transaccion, required="required" ) }}
   </div>
   <div class="">
     {{ render_field(form.servicio, required="required" ) }}
@@ -36,6 +36,7 @@
 
   <button type="submit" name="button">Enviar</button>
 </form>
+</div>
 {% endblock %}
 
 {% block footer %}

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="width">
 {% from "_macro.html" import render_field %}
 {% from "_macro.html" import show_log %}
 <h2>Read</h2>
@@ -11,19 +12,29 @@
 
   <form class="" action="" method="get">
     <h3>Filtros</h3>
-    <div class="" style="display:flex">
-      <div class="">
-        {{ render_field(form.tipo) }}
+    <div class="form_read">
+      <div class="input_read">
+        <div class="">
+          {{ render_field(form.tipo) }}
+        </div>
+        <div class="">
+          {{ render_field(form.fecha, type="date" ) }}
+        </div>
+        <div class="">
+          {{ render_field(form.hora, type="time" ) }}
+        </div>
       </div>
-      <div class="">
-        {{ render_field(form.fecha, type="date" ) }}
+      <div class="input_read">
+        <div class="">
+          {{ render_field(form.transaccion) }}
+        </div>
+        <div class="">
+          {{ render_field(form.servicio) }}
+        </div>
+        <div class="button_container">
+          <button type="submit" name="filter_activate" value="True">Filtrar</button>
+        </div>
       </div>
-      <div class="">
-        {{ render_field(form.hora, type="time" ) }}
-      </div>
-    </div>
-    <div class="">
-      <button type="submit" name="filter_activate" value="True">Filtrar</button>
     </div>
   </form><br>
 
@@ -38,33 +49,35 @@
       <thead>
         <th>Tipo.</th>
         <th>Descripción.</th>
-        <th>Fecha.</th>
+        <th>Fecha.<br>yyyy/mm/dd</th>
         <th>Hora.</th>
-        <th>Trasaccion.</th>
+        <th>Transaccion.</th>
         <th>Servicio.</th>
+        <th>Actualizar</th>
+        <th>Borrar</th>
       </thead>
       <tbody>
         {% for log in logs %}
-        <tr>
-          {{ show_log(log) }}
-          <td>
-            <form action="{{ url_for('update_log') }}" name="form" method="get">
-              <input type="hidden" name="log" value="{{ log.log_id }}">
-              <button type="submit">Actualizar</button>
-            </form>
-          </td>
-          <td>
-            <form action="{{ url_for('delete_log') }}" method="get">
-              <input type="hidden" name="log" value="{{ log.log_id }}">
-              <button type="submit">Borrar</button>
-            </form>
-          </td>
-        </tr>
+          <tr>
+            {{ show_log(log) }}
+            <td>
+              <form action="{{ url_for('update_log') }}" name="form" method="get">
+                <input type="hidden" name="log" value="{{ log.log_id }}">
+                <button type="submit">Actualizar</button>
+              </form>
+            </td>
+            <td>
+              <form action="{{ url_for('delete_log') }}" method="get">
+                <input type="hidden" name="log" value="{{ log.log_id }}">
+                <button type="submit">Borrar</button>
+              </form>
+            </td>
+          </tr>
         {% endfor %}
       </tbody>
     </table>
   {% endif %}
-
+</div>
 {% endblock %}
 
 

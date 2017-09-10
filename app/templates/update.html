@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="">
 {% from "_macro.html" import render_field %}
 {% from "_macro.html" import show_log %}
 <div class="">
@@ -9,9 +10,9 @@
     <thead>
       <th>Tipo.</th>
       <th>Descripción.</th>
-      <th>Fecha.</th>
+      <th>Fecha.<br>yyyy/mm/dd</th>
       <th>Hora.</th>
-      <th>Trasaccion.</th>
+      <th>Transaccion.</th>
       <th>Servicio.</th>
     </thead>
     <tbody>
@@ -28,35 +29,37 @@
 {% if db_not_conn %}
 <span>Ocurrio un error al conectarse con la base de datos, por favor intentelo mas tarde.</span>
 {% endif %}
-
-<form action="" method="post">
-  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-
-  <div class="">
-    {{ render_field(form.tipo, required="required") }}
-    {% if tipo_not_val %}
-    <ul><li> <p>Porfavor selecciona el tipo</p> </li></ul>
+<div class="center">
+  <form action="" method="post">
+    {% if form_not_val %}
+    <ul><li> <p>Porfavor selecciona todos los campos </p> </li></ul>
     {% endif %}
-  </div>
-  <div class="">
-    {{ render_field(form.descripcion, required="required" ) }}
-  </div>
-  <div class="">
-    {{ render_field(form.fecha, type="date", required="required" ) }}
-  </div>
-  <div class="">
-    {{ render_field(form.hora, type="time", required="required" ) }}
-  </div>
-  <div class="">
-    {{ render_field(form.trasaccion, required="required" ) }}
-  </div>
-  <div class="">
-    {{ render_field(form.servicio, required="required" ) }}
-  </div>
-  <button type="submit" name="button">Actualizar</button>
-</form>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
-<a href="javascript:history.go(-1)">Cancelar</a>
+    <div class="">
+      {{ render_field(form.tipo, required="required") }}
+    </div>
+    <div class="">
+      {{ render_field(form.descripcion, required="required" ) }}
+    </div>
+    <div class="">
+      {{ render_field(form.fecha, type="date", required="required" ) }}
+    </div>
+    <div class="">
+      {{ render_field(form.hora, type="time", required="required" ) }}
+    </div>
+    <div class="">
+      {{ render_field(form.transaccion, required="required" ) }}
+    </div>
+    <div class="">
+      {{ render_field(form.servicio, required="required" ) }}
+    </div>
+    <button type="submit" name="button">Actualizar</button>
+  </form>
+</div>
+
+<a href="{{ url_for('logs') }}">Cancelar</a>
+</div>
 {% endblock %}
 
 {% block footer %}

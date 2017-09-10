@@ -5,7 +5,7 @@ from wtforms import validators
 class FormLog(Form):
     tipo = SelectField(
         'Tipo:',
-        validators= [validators.length(min=5, max = 11, message='Tipo no valido'), validators.input_required(message = 'Entrada requerida.') ],#,tipo_valido],
+        validators= [validators.length(min=5, max = 11, message='Tipo no valido'), validators.input_required(message = 'Entrada requerida.') ],
         choices=[('False', ''),('Information', 'Information'), ('Warning', 'Warning'), ('Error', 'Error')]
         )
     descripcion = StringField(
@@ -20,13 +20,15 @@ class FormLog(Form):
         'Hora:',
         validators= [validators.input_required(message = 'Entrada requerida.')]
         )
-    trasaccion = TextField(
-        'Trasaccion:',
-        validators= [validators.input_required(message = 'Entrada requerida.')]
+    transaccion = SelectField(
+        'Transaccion:',
+        validators= [validators.input_required(message = 'Entrada requerida.')],
+        choices=[('False', ''),('Transaccion_1', 'Transaccion_1'), ('Transaccion_2', 'Transaccion_2'), ('Transaccion_3', 'Transaccion_3')]
         )
-    servicio = TextField(
+    servicio = SelectField(
         'Servicio:',
-        validators= [validators.input_required(message = 'Entrada requerida.')]
+        validators= [validators.input_required(message = 'Entrada requerida.')],
+        choices=[('False', ''),('Servicio_1', 'Servicio_1'), ('Servicio_2', 'Servicio_2'), ('Servicio_3', 'Servicio_3')]
         )
 
 
@@ -43,4 +45,14 @@ class FormLogFilter(Form):
     hora = StringField(
         'Hora:',
         validators= [validators.input_required(message = 'Entrada requerida.')]
+        )
+    transaccion = SelectField(
+        'Transaccion:',
+        validators= [validators.input_required(message = 'Entrada requerida.')],
+        choices=[('False', ''),('Transaccion_1', 'Transaccion_1'), ('Transaccion_2', 'Transaccion_2'), ('Transaccion_3', 'Transaccion_3')]
+        )
+    servicio = SelectField(
+        'Servicio:',
+        validators= [validators.input_required(message = 'Entrada requerida.')],
+        choices=[('False', ''),('Servicio_1', 'Servicio_1'), ('Servicio_2', 'Servicio_2'), ('Servicio_3', 'Servicio_3')]
         )
